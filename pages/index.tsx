@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Box, Center, Spacer, Stack } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import NavBar from '@/components/NavBar'
+import Disconnected from '@/components/Disconnected'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 
@@ -23,11 +24,10 @@ const Home: NextPage = () => {
         backgroundPosition="center"
       >
         <Stack w="full" h="calc(100vh)" justify="center">
-          { /* NavBar */ }
           <NavBar />
           <Spacer />
           <Center>
-            { /* If connected, the second view, otherwise the first */ }
+            <Disconnected />
           </Center>
           <Spacer />
 
