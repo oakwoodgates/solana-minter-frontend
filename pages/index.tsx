@@ -5,10 +5,14 @@ import NavBar from '@/components/NavBar'
 import Disconnected from '@/components/Disconnected'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useWallet } from '@solana/wallet-adapter-react'
+import Connected from '@/components/Connected'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Home: NextPage = () => {
+  const { connected } = useWallet()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -27,7 +31,7 @@ const Home: NextPage = () => {
           <NavBar />
           <Spacer />
           <Center>
-            <Disconnected />
+            {connected ? <Connected /> : <Disconnected />}
           </Center>
           <Spacer />
 
