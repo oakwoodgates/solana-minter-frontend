@@ -8,25 +8,38 @@ import {
     VStack,
 } from "@chakra-ui/react"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
+import { useWallet } from "@solana/wallet-adapter-react"
+import { useWalletModal } from "@solana/wallet-adapter-react-ui"
 
 const Disconnected: FC = () => { 
+
+    const modalState = useWalletModal()
+    const { wallet, connect } = useWallet()
+
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
         (event) => {
-            event.preventDefault()
-            return 
+            if (event.defaultPrevented) {
+                return
+            }
+            if (!wallet) {
+                modalState.setVisible(true)
+            } else {
+                connect().catch(()=>{})
+            }
         },
-        []
+        [wallet, connect, modalState]
     )
 
     return (
-        <Container>
+      <Container>
         <VStack spacing={20}>
           <Heading
             color="white"
             as="h1"
             size="3xl"
-            noOfLines={2}
+            noOfLines={6}
             textAlign="center"
+            overflow="visible"
           >
             Mint your buildoor. Earn $BLD. Level up.
           </Heading>
